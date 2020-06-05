@@ -1,0 +1,29 @@
+<table class="table table-hover">
+    <tr>
+        <td width="70px">
+            <a href="{{ url_for('user', username=coment.author.username) }}">
+                <img src="{{ coment.author.avatar(70) }}" />
+            </a>
+        </td>
+        <td>
+            <a href="{{ url_for('user', username=coment.author.username) }}">
+                {{ coment.author.username }}
+            </a>        
+            {% if coment.author.posts.count()+coment.author.coments.count() == 0 %}
+            <em> Читатель </em>
+            {% elif coment.author.posts.count()+coment.author.coments.count() < 10 %}
+            <em> Новичок </em>
+            {% elif coment.author.posts.count()+coment.author.coments.count() < 50 %}
+            <em> Юзер </em>
+            {% elif coment.author.posts.count()+coment.author.coments.count() < 100 %}
+            <em> Постоянный пользователь </em>
+            {% else %}
+            <em> Больной, что ты тут забыл? </em> 
+            {% endif %} 
+               says:
+            <br>
+            {{ coment.body }}
+            </br>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,40 @@
+<table class="table table-hover">
+    <tr>
+        <td width="70px">
+            <a href="{{ url_for('user', username=post.author.username) }}">
+                <img src="{{ post.author.avatar(70) }}" />
+            </a>
+        </td>
+        <td>
+            <a href="{{ url_for('user', username=post.author.username) }}">
+                {{ post.author.username }}
+            </a>        
+            {% if post.author.posts.count()+post.author.coments.count() == 0 %}
+            <em> Читатель </em>
+            {% elif post.author.posts.count()+post.author.coments.count() < 10 %}
+            <em> Новичок </em>
+            {% elif post.author.posts.count()+post.author.coments.count() < 50 %}
+            <em> Юзер </em>
+            {% elif post.author.posts.count()+post.author.coments.count() < 100 %}
+            <em> Постоянный пользователь </em>
+            {% else %}
+            <em> Больной, что ты тут забыл? </em> 
+            {% endif %} 
+               says:
+            <br>
+            {{ post.body }}
+            </br>
+            <p> <a href="{{ url_for('coment', postid=post.id) }}">
+                Коментарии
+            </a>
+            </p>
+            {% if post.author.username == current_user.username %}
+            <p> <a href="{{ url_for('delete', postid=post.id) }}">
+                Удалить сообщение
+            </a>
+            </p> 
+            {% endif %}      
+        </td>
+    </tr>
+</table>
+
